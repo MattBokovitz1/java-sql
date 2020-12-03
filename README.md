@@ -203,6 +203,8 @@ WHERE upper(contact_title) LIKE '%MARKET%'
   ORDER BY c.city
 ```
 
+//
+
 ## Data Normalization
 
 Note: This step does not use PostgreSQL!
