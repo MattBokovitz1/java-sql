@@ -76,6 +76,9 @@ WHERE city = 'London'
   </details>
 
 ```SQL
+SELECT phone
+FROM suppliers
+WHERE supplier_id = '11'
 
 ```
 
@@ -87,7 +90,9 @@ WHERE city = 'London'
   </details>
 
 ```SQL
-
+SELECT *
+FROM orders
+ORDER BY order_date DESC
 ```
 
 - [ ] **_find all suppliers who have names longer than 20 characters. Returns 11 records_**
@@ -99,6 +104,10 @@ WHERE city = 'London'
   </details>
 
 ```SQL
+SELECT *
+FROM suppliers
+WHERE length(company_name) > 20
+
 
 ```
 
@@ -112,7 +121,9 @@ WHERE city = 'London'
   </details>
 
 ```SQL
-
+SELECT *
+FROM customers
+WHERE upper(contact_title) LIKE '%MARKET%'
 ```
 
 - [ ] **_add a customer record for_**
@@ -129,7 +140,8 @@ WHERE city = 'London'
   </details>
 
 ```SQL
-
+  INSERT INTO customers(customer_id, company_name, contact_name, address, city, postal_code, country)
+  VALUES ('SHIRE', 'The Shire', 'Bilbo Baggins', '1 Hobbit-Hole', 'Bag End', '111', 'Middle Earth')
 ```
 
 - [ ] **_update *Bilbo Baggins* record so that the postal code changes to *"11122"*_**
@@ -140,7 +152,9 @@ WHERE city = 'London'
   </details>
 
 ```SQL
-
+  UPDATE customers
+  SET postal_code = '11122'
+  WHERE contact_name = 'Bilbo Baggins'
 ```
 
 - [ ] **_list orders grouped and ordered by customer company name showing the number of orders per customer company name. *Rattlesnake Canyon Grocery* should have 18 orders_**
@@ -152,7 +166,11 @@ WHERE city = 'London'
   </details>
 
 ```SQL
-
+  SELECT COUNT(o.customer_id), c.company_name
+  FROM customers c JOIN orders o
+  on o.customer_id = c.customer_id
+  GROUP BY c.company_name
+  ORDER BY c.company_name
 ```
 
 - [ ] **_list customers by contact name and the number of orders per contact name. Sort the list by the number of orders in descending order. *Jose Pavarotti* should be at the top with 31 orders followed by *Roland Mendal* with 30 orders. Last should be *Francisco Chang* with 1 order_**
@@ -163,7 +181,11 @@ WHERE city = 'London'
   </details>
 
 ```SQL
-
+  SELECT COUNT(o.customer_id), c.company_name
+  FROM customers c JOIN orders o
+  on o.customer_id = c.customer_id
+  GROUP BY c.company_name
+  ORDER BY c.company_name
 ```
 
 - [ ] **_list orders grouped by customer's city showing the number of orders per city. Returns 69 Records with *Aachen* showing 6 orders and *Albuquerque* showing 18 orders_**
@@ -174,7 +196,11 @@ WHERE city = 'London'
   </details>
 
 ```SQL
-
+  SELECT COUNT(o.customer_id), c.city
+  FROM customers c JOIN orders o
+  on o.customer_id = c.customer_id
+  GROUP BY c.city
+  ORDER BY c.city
 ```
 
 ## Data Normalization
@@ -243,6 +269,28 @@ Table Name:
 |     |     |     |     |     |     |     |     |     |
 
 ---
+
+Table Name: Pets
+
+| pet_id | pet_name   | type_id | person_id |
+| ------ | ---------- | ------- | --------- |
+| 1      | Ellie      | 1       | 1         |
+| 2      | Joe        | 2       | 2         |
+| 3      | Ginger     | 1       | 3         |
+| 4      | Tiger      | 3       | 1         |
+| 5      | Miss Kitty | 3       | 3         |
+| 6      | Toby       | 4       | 1         |
+| 7      | Bubble     | 5       | 3         |
+
+Table Name: Pet Types
+
+| type_id | pet_type |
+| ------- | -------- |
+| 1       | Dog      |
+| 2       | Horse    |
+| 3       | Cat      |
+| 4       | Turtle   |
+| 5       | Fish     |
 
 ### Stretch Goals
 
